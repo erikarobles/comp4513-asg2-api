@@ -48,7 +48,8 @@ const getMoviesByYearRange = (app, Movie) => {
 
     app.get("/api/movies/year/:min/:max", (req, resp) => { 
 
-        const { min, max } = req.params;
+        const min = req.params.min;
+        const max = req.params.max;
 
         if (min > max) {
             return resp.status(400).json({ error: "Min must be less than or equal to max." });
