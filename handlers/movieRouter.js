@@ -1,7 +1,7 @@
 // GET /api/movies - return all books 
 const getAllMovies = (app, Movie) => { 
 
-    app.get('/api/movie', (req,resp) => { 
+    app.get('/api/movies', (req,resp) => { 
     // use mongoose to retrieve all books from Mongo 
         Movie.find() 
             .then((data) => { resp.json(data); }) 
