@@ -68,7 +68,7 @@ const getMoviesByYearRange = (app, Movie) => {
     }); 
 }; 
 
-// GET /api/movies/ratings/:min/:max- return a books whose avg. rating is between the min and max
+// GET /api/movies/ratings/:min/:max - return a books whose avg. rating is between the min and max
 const getMoviesByRatingRange = (app, Movie) => { 
 
     app.get("/api/movies/ratings/:min/:max", (req, resp) => { 
@@ -91,12 +91,41 @@ const getMoviesByRatingRange = (app, Movie) => {
     }); 
 }; 
 
+// GET /api/movies/title/:text - return books whose title contains the given text somewhere in the title
+const getMoviesByTitle = (app, Movie) => {
+    app.get("/api/movies/title/:text", (req, resp) => {
+
+      const text = req.params.text;
+      Movie.find({ title: { $regex: new RegExp(text, "i") } })
+        .sort({ title: 1 })
+        .exec()
+        .then((data) => { resp.json(data);})
+        .catch((err) => { resp.json({ message: "Failed to get movies" });});
+    });
+};  
+
+// GET /api/movies/genre/:name - return books whose genres matches the provided genre
+const getMoviesByGenre = (app, Movie) => {
+    app.get("/api/movies/genre/:name", (req, resp) => {
+
+      const genre = req.params.name;
+
+      Movie.find({ "details.genres.name": { $regex: new RegExp(genre, "i") } })
+        .sort({ title: 1 })
+        .exec()
+        .then((data) => { resp.json(data);})
+        .catch((err) => { resp.json({ message: "Failed to get movies" });});
+    });
+}; 
+
 module.exports = { 
     getAllMovies,
     getMoviesByLimit,
     getMovieById,
     getMovieByTmbdId,
     getMoviesByYearRange,
-    getMoviesByRatingRange
+    getMoviesByRatingRange,
+    getMoviesByTitle,
+    getMoviesByGenre
 }; 
    

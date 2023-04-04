@@ -16,6 +16,8 @@ movieRouter.getMovieById(app, Movie);
 movieRouter.getMovieByTmbdId(app, Movie);
 movieRouter.getMoviesByYearRange(app, Movie);
 movieRouter.getMoviesByRatingRange(app, Movie);
+movieRouter.getMoviesByTitle(app, Movie);
+movieRouter.getMoviesByGenre(app, Movie);
 
 // create connection to database 
 require('./handlers/dataConnector.js').connect(); 
