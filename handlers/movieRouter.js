@@ -16,8 +16,9 @@ const getMoviesByLimit = (app, Movie) => {
         const num = parseInt(req.params.num);
 
         if(num < 1 || num > 200) {
-            return resp.json({error: 'Invalid parameter: num'})
+            return resp.json({error: 'num must be between 1 and 200.'})
         }
+
         Movie.find().limit(num)
             .then((data) => { resp.json(data); }) 
             .catch((err) => { resp.json({ message: "Failed to get movies" }); }); 
@@ -33,7 +34,7 @@ const getMovieById = (app, Movie) => {
     }); 
 }; 
 
-// GET /api/movies/:id - return a single book by tmdb_id
+// GET /api/movies/tmdb/:id - return a single book by tmdb_id
 const getMovieByTmbdId = (app, Movie) => { 
     app.get("/api/movies/tmdb/:id", (req, resp) => { 
         Movie.find({ tmdb_id: req.params.id }) 
@@ -42,10 +43,35 @@ const getMovieByTmbdId = (app, Movie) => {
     }); 
 }; 
 
+// GET /api/movies/year/:min/:max- return a books whose year is between the min and max
+const getMoviesByYearRange = (app, Movie) => { 
+
+    app.get("/api/movies/year/:min/:max", (req, resp) => { 
+
+        const { min, max } = req.params;
+
+        if (min > max) {
+            return resp.status(400).json({ error: "Min must be less than or equal to max." });
+        }
+
+        const minYear = parseInt(min);
+        const maxYear = parseInt(max);
+
+        Movie.find() 
+            .where("release_date") 
+            .regex(new RegExp(`^(${minYear}|${maxYear})`))
+            .sort({ title: 1 }) 
+            .exec() 
+            .then((data) => { resp.json(data); }) 
+            .catch((err) => { resp.json({ message: "Failed to get movies" }); }); 
+    }); 
+}; 
+
 module.exports = { 
     getAllMovies,
     getMoviesByLimit,
     getMovieById,
-    getMovieByTmbdId
+    getMovieByTmbdId,
+    getMoviesByYearRange
 }; 
    
