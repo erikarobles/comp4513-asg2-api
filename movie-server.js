@@ -11,6 +11,7 @@ app.use(express.urlencoded({extended: true}));
 // use the route handlers 
 const movieRouter = require('./handlers/movieRouter.js'); 
 movieRouter.getAllMovies(app, Movie);
+movieRouter.getMoviesByLimit(app, Movie);
 
 // create connection to database 
 require('./handlers/dataConnector.js').connect(); 
