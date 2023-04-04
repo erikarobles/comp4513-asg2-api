@@ -33,9 +33,19 @@ const getMovieById = (app, Movie) => {
     }); 
 }; 
 
+// GET /api/movies/:id - return a single book by tmdb_id
+const getMovieByTmbdId = (app, Movie) => { 
+    app.get("/api/movies/tmdb/:id", (req, resp) => { 
+        Movie.find({ tmdb_id: req.params.id }) 
+            .then((data) => { resp.json(data); }) 
+            .catch((err) => { resp.json({ message: "Failed to get movie" }); }); 
+    }); 
+}; 
+
 module.exports = { 
     getAllMovies,
     getMoviesByLimit,
-    getMovieById
+    getMovieById,
+    getMovieByTmbdId
 }; 
    
