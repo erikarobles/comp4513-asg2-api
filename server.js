@@ -8,7 +8,7 @@ app.use(express.static('public'));
 app.use('/static', express.static('public'));
 
 // get our data model 
-const Book = require('./models/Book'); 
+const Movie = require('./models/Movie'); 
 
 // tell node to use json and HTTP header features in body-parser 
 app.use(express.urlencoded({extended: true})); 
@@ -18,7 +18,7 @@ app.use(express.urlencoded({extended: true}));
 require('./handlers/dataConnector.js').connect(); 
 
 app.use(function (req, res, next) { 
-    res.status(404).send("Sorry can't find that!") 
+    res.status(404).send("Sorry I can't find that!") 
 }); 
 
 const port = process.env.port; 
