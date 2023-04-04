@@ -5,7 +5,7 @@ const connect = () => {
     const opt = {
         useUnifiedTopology: true,
         useNewUrlParser: true, 
-        dbName: 'funwebdev' 
+        dbName: 'web-asg2' 
     };
 
     console.log("starting to connect to mongo ..."); 
