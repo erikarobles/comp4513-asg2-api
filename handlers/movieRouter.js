@@ -8,7 +8,7 @@ const getAllMovies = (app, Movie) => {
     }); 
 }; 
 
-// GET /api/movies/limit/num - return first 'num' movies, num = 1-200
+// GET /api/movies/limit/:num - return first 'num' movies, num = 1-200
 const getMoviesByLimit = (app, Movie) => { 
 
     app.get('/api/movies/limit/:num', (req,resp) => { 
@@ -24,10 +24,18 @@ const getMoviesByLimit = (app, Movie) => {
     }); 
 }; 
 
-
+// GET /api/movies/:id - return a single book by id
+const getMovieById = (app, Movie) => { 
+    app.get("/api/movies/:id", (req, resp) => { 
+        Movie.find({ id: req.params.id }) 
+            .then((data) => { resp.json(data); }) 
+            .catch((err) => { resp.json({ message: "Failed to get movie" }); }); 
+    }); 
+}; 
 
 module.exports = { 
     getAllMovies,
-    getMoviesByLimit
+    getMoviesByLimit,
+    getMovieById
 }; 
    
