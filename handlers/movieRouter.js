@@ -68,11 +68,35 @@ const getMoviesByYearRange = (app, Movie) => {
     }); 
 }; 
 
+// GET /api/movies/ratings/:min/:max- return a books whose avg. rating is between the min and max
+const getMoviesByRatingRange = (app, Movie) => { 
+
+    app.get("/api/movies/ratings/:min/:max", (req, resp) => { 
+
+        const min = req.params.min;
+        const max = req.params.max;
+
+        if (min > max) {
+            return resp.status(400).json({ error: "Min must be less than or equal to max." });
+        }
+
+        Movie.find() 
+            .where("ratings.average") 
+            .gt(req.params.min) 
+            .lt(req.params.max) 
+            .sort({ title: 1 }) 
+            .exec() 
+            .then((data) => { resp.json(data); }) 
+            .catch((err) => { resp.json({ message: "Failed to get movies" }); }); 
+    }); 
+}; 
+
 module.exports = { 
     getAllMovies,
     getMoviesByLimit,
     getMovieById,
     getMovieByTmbdId,
-    getMoviesByYearRange
+    getMoviesByYearRange,
+    getMoviesByRatingRange
 }; 
    
