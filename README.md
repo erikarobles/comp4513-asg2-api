@@ -53,11 +53,15 @@
 
 (https://comp4513-api.onrender.com/api/movies/year/2030/2003)
 
+#### Get movies by year range - no matches with selected range
+
+(https://comp4513-api.onrender.com/api/movies/year/2030/2045)
+
 #### Get movies by ratings range - min is greater than max
 
 (https://comp4513-api.onrender.com/api/movies/ratings/5/4)
 
-#### Get movies by ratings range - no matches with provided range
+#### Get movies by ratings range - no matches with selected range
 
 (https://comp4513-api.onrender.com/api/movies/ratings/1/3)
 
