@@ -141,6 +141,11 @@ const getMoviesByRatingRange = (app, Movie) => {
             })
             .exec()
             .then((data) => {
+                if (Object.keys(data).length === 0) {
+                    return resp.status(404).json({
+                        message: "No movies match the selected range."
+                    });
+                }
                 resp.json(data);
             })
             .catch((err) => {
