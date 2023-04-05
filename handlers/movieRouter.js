@@ -23,7 +23,7 @@ const getMoviesByLimit = (app, Movie) => {
 
         if (num < 1 || num > 200) {
             return resp.json({
-                error: 'num must be between 1 and 200.'
+                error: 'Limit number must be between 1 and 200. Failed to get movies.'
             })
         }
 
@@ -48,7 +48,7 @@ const getMovieById = (app, Movie) => {
             .then((data) => {
                 if (Object.keys(data).length === 0) {
                     return resp.status(404).json({
-                        message: "Movie ID does not exist in the database. Failed to get movie"
+                        message: "Movie ID does not exist in the database. Failed to get movie."
                     });
                 }
                 resp.json(data);
@@ -70,7 +70,7 @@ const getMovieByTmdbId = (app, Movie) => {
             .then((data) => {
                 if (Object.keys(data).length === 0) {
                     return resp.status(404).json({
-                        message: "TMDB ID does not exist in the database. Failed to get movie"
+                        message: "TMDB ID does not exist in the database. Failed to get movie."
                     });
                 }
                 resp.json(data);
