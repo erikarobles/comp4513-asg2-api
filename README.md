@@ -1,4 +1,4 @@
-# comp4513-asg2-api
+# COMP 4513 - Assignment 2 (Movies API)
 
 ## API Routes
 
