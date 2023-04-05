@@ -3,5 +3,5 @@
 #### Get all movies
 
 ```http
-  [https://comp4513-api.onrender.com/api/movies]
+  (https://comp4513-api.onrender.com/api/movies)
 ```
