@@ -31,7 +31,7 @@ const getMovieById = (app, Movie) => {
         Movie.find({ id: req.params.id }) 
             .then((data) => { 
                 if (Object.keys(data).length === 0) {
-                    return resp.status(404).json({ message: "Movie ID does not exist in the database" });
+                    return resp.status(404).json({ message: "Movie ID does not exist in the database. Failed to get movie" });
                 } 
                 resp.json(data); 
             }) 
@@ -40,10 +40,15 @@ const getMovieById = (app, Movie) => {
 }; 
 
 // GET /api/movies/tmdb/:id - return a single book by tmdb_id
-const getMovieByTmbdId = (app, Movie) => { 
+const getMovieByTmdbId = (app, Movie) => { 
     app.get("/api/movies/tmdb/:id", (req, resp) => { 
         Movie.find({ tmdb_id: req.params.id }) 
-            .then((data) => { resp.json(data); }) 
+            .then((data) => { 
+                if (Object.keys(data).length === 0) {
+                    return resp.status(404).json({ message: "TMDB ID does not exist in the database. Failed to get movie" });
+                } 
+                resp.json(data); 
+            }) 
             .catch((err) => { resp.json({ message: "Failed to get movie" }); }); 
     }); 
 }; 
@@ -127,7 +132,7 @@ module.exports = {
     getAllMovies,
     getMoviesByLimit,
     getMovieById,
-    getMovieByTmbdId,
+    getMovieByTmdbId,
     getMoviesByYearRange,
     getMoviesByRatingRange,
     getMoviesByTitle,

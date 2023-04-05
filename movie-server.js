@@ -13,7 +13,7 @@ const movieRouter = require('./handlers/movieRouter.js');
 movieRouter.getAllMovies(app, Movie);
 movieRouter.getMoviesByLimit(app, Movie);
 movieRouter.getMovieById(app, Movie);
-movieRouter.getMovieByTmbdId(app, Movie);
+movieRouter.getMovieByTmdbId(app, Movie);
 movieRouter.getMoviesByYearRange(app, Movie);
 movieRouter.getMoviesByRatingRange(app, Movie);
 movieRouter.getMoviesByTitle(app, Movie);
