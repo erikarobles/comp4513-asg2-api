@@ -29,7 +29,12 @@ const getMoviesByLimit = (app, Movie) => {
 const getMovieById = (app, Movie) => { 
     app.get("/api/movies/:id", (req, resp) => { 
         Movie.find({ id: req.params.id }) 
-            .then((data) => { resp.json(data); }) 
+            .then((data) => { 
+                if (Object.keys(data).length === 0) {
+                    return resp.status(404).json({ message: "Movie ID does not exist in the database" });
+                } 
+                resp.json(data); 
+            }) 
             .catch((err) => { resp.json({ message: "Failed to get movie" }); }); 
     }); 
 }; 
