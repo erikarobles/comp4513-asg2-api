@@ -109,7 +109,12 @@ const getMoviesByTitle = (app, Movie) => {
       Movie.find({ title: { $regex: new RegExp(text, "i") } })
         .sort({ title: 1 })
         .exec()
-        .then((data) => { resp.json(data);})
+        .then((data) => { 
+            if (Object.keys(data).length === 0) {
+                return resp.status(404).json({ message: "Title does not exist in the database. Failed to get movies" });
+            } 
+            resp.json(data);
+        })
         .catch((err) => { resp.json({ message: "Failed to get movies" });});
     });
 };  
@@ -123,7 +128,12 @@ const getMoviesByGenre = (app, Movie) => {
       Movie.find({ "details.genres.name": { $regex: new RegExp(genre, "i") } })
         .sort({ title: 1 })
         .exec()
-        .then((data) => { resp.json(data);})
+        .then((data) => { 
+            if (Object.keys(data).length === 0) {
+                return resp.status(404).json({ message: "Genre does not exist in the database. Failed to get movies" });
+            }
+            resp.json(data);
+        })
         .catch((err) => { resp.json({ message: "Failed to get movies" });});
     });
 }; 
