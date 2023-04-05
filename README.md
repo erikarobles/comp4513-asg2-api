@@ -33,6 +33,8 @@
 
 (https://comp4513-api.onrender.com/api/movies/genre/comedy)
 
+&emsp;
+
 ## API Routes (Invalid Use Cases)
 
 #### Get movies by limit - exceed 200
